@@ -77,7 +77,7 @@ def get_avg_centroid(x_y_index, coords):
 
 	return centroid
 
-def next_group_matrix(points):
+def k_means_clustering(points):
 	'''Return the group matrix given coordinates'''
 	coords = get_coordinates(points)
 	centroids = []
@@ -90,15 +90,27 @@ def next_group_matrix(points):
 		N = 14,O = 15,P = 16,Q = 17,R = 18,S = 19,T = 20,U = 21,V = 22,W = 23,X = 24,Y = 25,Z = 26)
 
 	#get two random centroids
-	for x in range(2):
+	i = 0
+	limit = 2
+	#ensure that the points are not similar
+	while i <= limit:
 		k = random.randint(0, (points-1))
-		centroids.append(k)
+		if k not in centroids:
+			centroids.append(k)
+		
+		if len(centroids) is not 2:
+			limit *= 2
+		else:
+			break
+		
 
 	#get the centroids as per the above rand positions
 	centroids = tuple(centroids)
 	i, j = centroids
-	centroid_one = (1,1)#coords[i]
-	centroid_two = (2, 1)#coords[j]
+	centroid_one = coords[i]
+	centroid_two = coords[j]
+
+	print(centroid_one, centroid_two)
 
 	#get the group matrix
 	grp_matrix = get_group_matrix(coords, centroid_one, centroid_two)
@@ -149,51 +161,6 @@ def next_group_matrix(points):
 		grp_matrix = new_grp_matrix
 
 
-def k_means_cluster(points):
-	'''Returns the specific clusters where points lie'''
-	#get the group matrix
-	grp_matrix, centroids, coords = group_matrix(points)
-	#get the number of elements in each cluster
-
-	#previous centroids
-	centroid_one, centroid_two = centroids
-	
-	a, b = [], []
-	for x_y_values in grp_matrix:
-		m, n = x_y_values
-		a.append(m)
-		b.append(n)
-
-	cluster_one_elems = sum(a)
-	cluster_two_elems = sum(b)
-
-	#calculate new centroids and iterate till stable i.e no change on group matrix
-	temp_grp_matrix = grp_matrix
-	while True:
-		if cluster_one_elems == 1:
-			#use the same centroid from the previous one
-			centroid_one = centroid_one
-
-		elif cluster_one_elems > 1:
-			#new centroid is the average of the elements
-			pass
-
-		if cluster_two_elems == 1:
-			#use the same centroid used in the last iteration
-			centroid_two = centroid_two
-
-		elif cluster_two_elems > 1:
-			#new centroid is the average of the elements
-			pass
-
-
-		#when no more change happens, stop iteration
-		if grp_matrix == temp_grp_matrix:
-			return grp_matrix
-	
-
-	#return euclid_distance, grp_matrix
-
 
 if __name__ == "__main__":
-	print(next_group_matrix(4))
+	print(k_means_clustering(4))
