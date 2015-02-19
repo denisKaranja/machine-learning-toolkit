@@ -30,13 +30,25 @@ def get_coordinates(points):
 
 	for coords in range(points):
 		#read as a tuple i.e (x, y)
-		coordinates.append( tuple(input()) )
+		user_coords = input()
+		user_coords = user_coords.split(',')
+		x, y = int(user_coords[0]), int(user_coords[1])
 
-		x, y, z = coordinates[coords]
-		coordinates.remove((x, y, z))
-		coordinates.append((int(x), int(z)))
+		coordinates.append((x, y))
 
 	return coordinates
+
+def get_coords(file_name):
+	'''Get coordinates from a file.'''
+	file_handle = open(file_name, "r")
+	file_coords = []
+	for content in file_handle:
+		content = content.replace(' ', "").replace("\n", "").replace('"', "").split(',')
+		coord = int(content[0]), int(content[1])
+
+		file_coords.append(coord)
+
+	return file_coords
 
 def get_group_matrix(coords, centroid_one, centroid_two):
 	'''Returns a group matrix'''
@@ -110,7 +122,7 @@ def k_means_clustering(points):
 	centroid_one = coords[i]
 	centroid_two = coords[j]
 
-	print(centroid_one, centroid_two)
+	print("\nRandom Centroids->",centroid_one, centroid_two)
 
 	#get the group matrix
 	grp_matrix = get_group_matrix(coords, centroid_one, centroid_two)
@@ -149,7 +161,7 @@ def k_means_clustering(points):
 			#new centroid is the average of the elements
 			centroid_two= get_avg_centroid(n_index_values, coords)
 		
-		#print(centroid_one, centroid_two)
+		print("New Centroids->",centroid_one, centroid_two)
 
 		#get new group matrix
 		new_grp_matrix = get_group_matrix(coords, centroid_one, centroid_two)
@@ -163,4 +175,4 @@ def k_means_clustering(points):
 
 
 if __name__ == "__main__":
-	print(k_means_clustering(4))
+	print(get_coords('data_files/kmc.txt'))
