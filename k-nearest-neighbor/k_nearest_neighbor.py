@@ -108,7 +108,7 @@ def read_csv(filename):
 		reader = csv.reader(data)
 
 		for stuff in reader:
-			stuff = stuff[0:13]
+			#stuff = stuff[0:13]
 			from_file.append(stuff)
 
 	data_length = len(from_file)
