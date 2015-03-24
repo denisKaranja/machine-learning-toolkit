@@ -22,7 +22,7 @@ TASK:
 __author__ = "Denis Karanja"
 __version__ = "1.0.0"
 
-import collections 
+import collections, csv 
 
 def get_coordinates(points):
 	#get coordinates for the points given in tuple form
@@ -97,8 +97,45 @@ def distance_apart(query_instance, training_set, cluster_size, file_name):
 	return conclusion, "Set added to {}".format(file_name)
 
 
+def read_csv(filename):
+	'''
+	Read from a csv file
+	@params -> String(Filename)
+	@return coordinates
+	'''
+	from_file = []
+	with open(filename) as data:
+		reader = csv.reader(data)
+
+		for stuff in reader:
+			stuff = stuff[0:13]
+			from_file.append(stuff)
+
+	data_length = len(from_file)
+	# 70% training set, 30% query set
+	training_set_len = int(0.7 * data_length)
+	query_set_len = int(0.3 * data_length)
+
+	training_set = from_file[0: training_set_len]
+	query_set = from_file[training_set_len:]
+
+	
+	#write to training set
+	with open("training.csv", "w") as train_set:
+		writer = csv.writer(train_set, delimiter = ",")
+		writer.writerows(training_set)
+
+	# write to query set
+	with open("query.csv", "w") as query_instance:
+		writer = csv.writer(query_instance, delimiter = ",")
+		writer.writerows(query_set)
+
+	return
+
+
 if __name__ == "__main__":
 	query, training, cluster_size, file_name = (5, 6), [(7, 7, 'bad'), (7, 4, 'bad'), (3, 4, 'good'), (1, 4, 'good')], 3, "../data_files/knn.txt" 
-	print(distance_apart(query, training, cluster_size, file_name ))
+	#print(distance_apart(query, training, cluster_size, file_name ))
 	#print(get_coords("data_files/knn.txt"))
+	print(read_csv("../data_files/csv/heart.data.csv"))
 	
