@@ -10,7 +10,10 @@ __version__ = "1.0.0"
 import random
 
 def generate_coordinates(limit, file_name):
-	'''Generates Coordinates and writes to file'''
+	'''
+	Generates Coordinates and writes to file
+	@params -> int(limit), string(filename)
+	'''
 	file_handle = open(file_name, "a")
 
 	for i in range(limit+1):

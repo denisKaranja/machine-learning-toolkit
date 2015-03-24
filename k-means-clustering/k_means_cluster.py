@@ -90,7 +90,11 @@ def get_avg_centroid(x_y_index, coords):
 	return centroid
 
 def k_means_clustering(points):
-	'''Return the group matrix given coordinates'''
+	'''
+	Return the group matrix given coordinates
+	@params -> int(number of points e.g A(x,y), B(x, y))
+	@return -> list of tuples [(x, y), (x, y)]
+	'''
 	coords = get_coordinates(points)
 	centroids = []
 	euclid_distance = []
@@ -175,4 +179,4 @@ def k_means_clustering(points):
 
 
 if __name__ == "__main__":
-	print(get_coords('data_files/kmc.txt'))
+	print(k_means_clustering(4))
