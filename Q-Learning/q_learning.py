@@ -2,6 +2,8 @@
 """
 Task: Q learning algorithm for machine learning...
 
+Based on Reward and punishment
+
 Date: 18th Feb, 2015 8:35 (pm)
 """
 

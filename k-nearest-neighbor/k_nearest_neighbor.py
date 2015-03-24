@@ -26,6 +26,10 @@ import collections
 
 def get_coordinates(points):
 	#get coordinates for the points given in tuple form
+	'''
+	@param -> tuple
+	@return -> list of tuples
+	'''
 	print("Please provide coordinates for the {} training set. (x, y, label)".format(points))
 	coordinates = []
 
@@ -53,7 +57,11 @@ def add_set(file_name, coords_list):
 	
 
 def distance_apart(query_instance, training_set, cluster_size, file_name):
-	'''Determines how far a query set is from the training set'''
+	'''
+	Determines how far a query set is from the training set
+	@params -> tuple, list of tuples, int, string(file_name)
+	@return -> tuple
+	'''
 	assert type(training_set) is list
 	assert type(query_instance) is tuple
 	assert type(cluster_size) is int
@@ -90,7 +98,7 @@ def distance_apart(query_instance, training_set, cluster_size, file_name):
 
 
 if __name__ == "__main__":
-	query, training, cluster_size, file_name = (3, 6), [(7, 7, 'bad'), (7, 4, 'bad'), (3, 4, 'good'), (1, 4, 'good')], 3, "data_files/knn.txt" 
+	query, training, cluster_size, file_name = (5, 6), [(7, 7, 'bad'), (7, 4, 'bad'), (3, 4, 'good'), (1, 4, 'good')], 3, "../data_files/knn.txt" 
 	print(distance_apart(query, training, cluster_size, file_name ))
 	#print(get_coords("data_files/knn.txt"))
 	
