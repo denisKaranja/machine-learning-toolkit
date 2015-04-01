@@ -179,4 +179,6 @@ def k_means_clustering(points):
 
 
 if __name__ == "__main__":
+	print("Input number of clusters")
+	clusters = int()
 	print(k_means_clustering(4))
